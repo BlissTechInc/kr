@@ -1,0 +1,20 @@
+{
+    "file": "production",
+    "server": {
+        "host": "http://localhost:",
+        "port": "8085"
+    },
+    "database": {
+        "user": "username",
+        "database": "dbname",
+        "password": "userpass",
+        "host": "mysql-db",
+        "port": 5432,
+        "max": 5,
+        "idleTimeoutMillis": 30000
+    },
+    "email-verification-minutes": 60,
+    "client": {
+        "googleAnalyticsId": "prod-analytics-id"
+    }
+}

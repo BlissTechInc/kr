@@ -1,0 +1,5 @@
+# install mysql 8.0.16
+FROM mysql:8.0.16
+
+# copy in mysql-dump.sql if it exists.
+COPY /scripts/mysql-db/mysql_dump.sql /docker-entrypoint-initdb.d/

@@ -1,0 +1,28 @@
+# TODO: delete this whole file? already available in docker-comp-dev, do we need it here too??
+
+# command to run:
+# docker-compose -f docker-comp-mysql.yml up
+
+# This will start mysql db container with it's associated data volumes container
+
+version: "3"
+services:
+
+  mysql-db:
+    environment:
+      - mysql_PASSWORD=sosecret
+      - mysql_USER=dbadmin
+      - MYSQL_DATABASE=krdb
+      - MYSQL_ROOT_PASSWORD=supersecret
+    image: rebelsnet/<db-image-name>
+    container_name: krebel-mysql
+    volumes:
+      - dev-db-volume:/var/lib/mysql/data
+      - ./scripts/mysql-db:/mysql-db
+    depends_on:
+      - mysql-data
+
+# shared volumes
+volumes:
+  dev-db-volume:
+  node_modules:

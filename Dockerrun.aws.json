@@ -1,0 +1,10 @@
+{
+    "AWSEBDockerrunVersion": "1",
+    "Image": {
+        "Name": "<aws-ecr>.dkr.ecr.us-west-2.amazonaws.com/kinkrebel:<VERSION>",
+        "Update": "true"
+    },
+    "Ports": [{
+        "ContainerPort": "3000"
+    }]
+}

@@ -1,0 +1,40 @@
+# command to run:
+# docker-compose -f docker-comp-dev.yml up
+
+# This will start dependencies container & mysql db container with it's associated data volumes container
+# and run 'npm run dev'
+
+version: "3"
+services:
+  # start development client/server container (no HMR)
+  dev:
+    image: rebelsnet/krebel-dependencies
+    container_name: "kinkrebel-dev"
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/usr/src/app
+      - node_modules:/usr/src/app/node_modules
+    depends_on:
+      - mysql-db
+
+    command: ["./scripts/mysql-db/run-migrate.sh", "mysql-db", "${DATABASE_MIGRATIONS}", "dev", "${DATABASE_SCOPES}"]
+  
+
+  # start database container
+  mysql-db:
+    environment:
+      - MYSQL_PASSWORD=sosecret
+      - MYSQL_USER=dbadmin
+      - MYSQL_DATABASE=krdb
+      - MYSQL_ROOT_PASSWORD=supersecret
+    image: rebelsnet/krebel-mysql
+    container_name: krebel-mysql
+    volumes:
+      - dev-db-volume:/var/lib/mysql/data
+      - ./scripts/mysql-db:/mysql-db
+
+# shared volumes for development
+volumes:
+  dev-db-volume:
+  node_modules:

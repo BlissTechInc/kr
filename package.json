@@ -1,31 +1,67 @@
 {
-  "name": "krebel",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
-    "react-scripts": "3.1.1"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+    "name": "kinkrebel",
+    "version": "0.1.0",
+    "private": true,
+    "proxy": "http://localhost:3000",
+    "dependencies": {
+        "body-parser": "^1.19.0",
+        "concurrently": "^4.1.2",
+        "express": "^4.17.1",
+        "express-mysql-session": "^2.1.0",
+        "express-session": "^1.16.2",
+        "moment": "^2.24.0",
+        "moment-timezone": "^0.5.26",
+        "morgan": "^1.9.1",
+        "mysql": "^2.17.1",
+        "node-sass": "^4.12.0",
+        "react": "^16.9.0",
+        "react-dom": "^16.9.0",
+        "react-redux": "^7.1.1",
+        "react-scripts": "3.1.1",
+        "redux": "^4.0.4",
+        "redux-form": "^8.2.6",
+        "redux-thunk": "^2.3.0",
+        "wait-on": "^3.3.0"
+    },
+    "scripts": {
+        "start": "npm run start:server",
+        "dev:hot": "NODE_ENV=development concurrently \"npm run start:server\" \"npm run start:app\"",
+        "start:app": "react-scripts start",
+        "start:server": "cd server && node ./server.js && wait-on tcp:3000",
+        "build": "react-scripts build",
+        "test": "react-scripts test",
+        "eject": "react-scripts eject",
+        "test-coverage": "NODE_ENV=test jest --coverage",
+        "test-watch": "NODE_ENV=test jest --watch",
+        "test-updateSnapshot": "NODE_ENV=development jest --updateSnapshot",
+        "add-dep": "bash ./scripts/npm-docker/add-dep.sh",
+        "update-dep": "bash ./scripts/npm-docker/update-dep.sh",
+        "rebuild-dep": "npm run docker-remove-dependencies:danger && npm run build-dep",
+        "build-dep": "docker build -t rebelsnet/krebel-dependencies -f Dockerfile-dev .",
+        "docker-build:dev": "docker-compose run --rm --service-ports build-dev",
+        "docker-dev": "docker-compose -f docker-comp-dev.yml up",
+        "docker-test": "docker-compose -f docker-comp-test.yml up --abort-on-container-exit",
+        "docker-remove-all:danger": "docker rm $(docker ps -a -q -f 'name=krebel') --force && docker rmi $(docker images rebelsnet/krebel* -q) --force && docker volume rm $(docker volume ls -q -f name=krebel) --force",
+        "docker-remove-dependencies:danger": "docker rm $(docker ps -a -q -f 'name=krebel-dev-hot') --force & docker rmi $(docker images rebelsnet/krebel-dependencies -q) --force & docker volume rm $(docker volume ls -q -f name=krebel_node_modules) --force",
+        "docker-stop": "docker stop $(docker ps -a -q --filter status=running)",
+        "docker-dev:hot": "docker-compose -f docker-comp-dev.yml -f docker-comp-dev-hot.yml up"
+    },
+    "eslintConfig": {
+        "extends": "react-app"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "devDependencies": {
+        "redux-devtools-extension": "^2.13.8"
+    }
 }

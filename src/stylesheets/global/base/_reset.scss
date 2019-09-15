@@ -1,0 +1,39 @@
+@import '../../shared/utils/all';
+// set the box model to include padding, border, and margin
+// in sizing calculations
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+    font: $font-stack;
+}
+
+// default removes focus effects
+*:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+body {
+    height: 100%;
+    margin: 0;
+    line-height: 1.5;
+    font-family: $font-stack;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    text-align: left;
+    background-color: white;
+}
+
+a {
+    text-decoration: none;
+}
+
+p {
+    font-size: 1.6rem;
+    color: color(dark);
+}

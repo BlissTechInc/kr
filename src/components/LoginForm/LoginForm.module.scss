@@ -1,0 +1,11 @@
+@import '../../stylesheets/shared/utils/all';
+.card {
+    width: 100%;
+    padding: 2em 0;
+    background: color(white);
+    color: color(formText);
+    @include border-radius(3px);
+    display: flex;
+    flex-direction: column;
+    height: 40vh;
+}
